@@ -1,9 +1,9 @@
-%declare DATE = `date +%Y-%m-%d`
+%declare DATE `date +%Y-%m-%d`
 REGISTER 'Lab5Blogs-0.0.1-SNAPSHOT.jar';
 DEFINE FILT edu.rosehulman.luos.CheckBlog();
 DEFINE COMPUTE edu.rosehulman.luos.Compute();
 DEFINE FORM edu.rosehulman.luos.Formatize();
-records = LOAD '$original' using PigStorage('\t') AS (date:chararray, time:chararray, x_edge_location:chararray, sc_bytes:int, c_ip:chararray, cs_method:chararray, csHost:chararray, cs_uri_stem:chararray, sc_status:int, csReferer:chararray, csUser_Agent:chararray, cs_uri_query:chararray, csCookie:chararray, x_edge_result_type:chararray, x_edge_request_id:chararray);
+records = LOAD 'sample' using PigStorage('\t') AS (date:chararray, time:chararray, x_edge_location:chararray, sc_bytes:int, c_ip:chararray, cs_method:chararray, csHost:chararray, cs_uri_stem:chararray, sc_status:int, csReferer:chararray, csUser_Agent:chararray, cs_uri_query:chararray, csCookie:chararray, x_edge_result_type:chararray, x_edge_request_id:chararray);
 
 filtered = FILTER records BY FILT(cs_uri_stem);
 ok = FOREACH filtered GENERATE cs_uri_stem, FLATTEN(STRSPLIT(cs_uri_stem, '/', 4)) as (empty:chararray,blog:chararray,name:chararray,extra:chararray), x_edge_result_type;
