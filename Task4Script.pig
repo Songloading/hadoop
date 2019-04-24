@@ -1,4 +1,4 @@
-DATE = `date +%Y-%m-%d`
+%declare DATE = `date +%Y-%m-%d`
 REGISTER 'Lab5Blogs-0.0.1-SNAPSHOT.jar';
 DEFINE FILT edu.rosehulman.luos.CheckBlog();
 DEFINE COMPUTE edu.rosehulman.luos.Compute();
@@ -26,4 +26,4 @@ ratios = FOREACH errornhits GENERATE hitsJoin::base::group as BlogName, COMPUTE(
 
 result = FOREACH ratios GENERATE BlogName, HitRatio, ErrorRatio,GetYear(time) as year, GetMonth(time) as month, GetDay(time) as day, GetHour(time) as hour;
 
-STORE result INTO '$output//$DATE';
+STORE result INTO '$outputdir//$DATE';
